@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Math Game</title>
+<style>
+body {
+  font-family: sans-serif;
+  font-size: 2vw;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.question {
+  margin-top: 20px;
+}
+
+.answer-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid black;
+}
+
+.correct {
+  color: green;
+}
+
+.wrong {
+  color: red;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class ="question">
+    <h1>Efenin Sayıları<br></h1>
+    <p>Topla <span id="num1"></span> + <span id="num2"></span>?</p>
+    <input type="text" id="answer" class="answer-input">
+  </div>
+  <div id="result"></div>
+</div>
+<script>
+var num1 = Math.floor(Math.random() * 10);
+var num2 = Math.floor(Math.random() * 10);
+
+var question = document.querySelector(".question");
+var answerInput = document.querySelector("#answer");
+var result = document.querySelector("#result");
+
+function generateQuestion() {
+  num1 = Math.floor(Math.random() * 10);
+  num2 = Math.floor(Math.random() * 10);
+
+  question.querySelector("span").textContent = num1;
+  question.querySelector("span").nextElementSibling.textContent = num2;
+}
+
+function checkAnswer() {
+  var answer = parseInt(answerInput.value);
+
+  if (answer === num1 + num2) {
+    result.classList.add("correct");
+    result.textContent = "Doğru!";
+    result.style.color = "green";
+    setTimeout(generateQuestion, 4000);
+  } else {
+    result.classList.add("wrong");
+    result.textContent = "Yanlış!";
+    result.style.color = "red";
+  }
+  answerInput.value = "";
+}
+
+answerInput.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+    checkAnswer();
+  }
+});
+
+generateQuestion();
+</script>
+</body>
+</html>
