@@ -7,7 +7,7 @@ body {
   font-family: sans-serif;
   font-size: 3vw;
   max-width: 50%;
-  margin: 0 auto;
+  margin: 5%;
 }
 
 .container {
@@ -40,9 +40,9 @@ body {
 <body>
 <div class="container">
   <div class ="question">
-    <h1>Efenin Sayıları<br></h1>
+    <h3>Efenin Sayıları<br></h3>
     <p>Topla <span id="num1"></span> + <span id="num2"></span>?</p>
-    <input type="text" id="answer" class="answer-input">
+    <input type="text" id="answer" class="answer-input" autofocus>
   </div>
   <div id="result"></div>
 </div>
@@ -55,14 +55,21 @@ var answerInput = document.querySelector("#answer");
 var result = document.querySelector("#result");
 
 function generateQuestion() {
-  num1 = Math.floor(Math.random() * 10);
-  num2 = Math.floor(Math.random() * 10);
+    
+    num1 = Math.floor(Math.random() * 10);
+  do {
+    num2 = Math.floor(Math.random() * 10);
+  } while (num1 + num2 > 10);
 
+  result.textContent = "";
   question.querySelector("span").textContent = num1;
   question.querySelector("span").nextElementSibling.textContent = num2;
+
+  answerInput.focus();
 }
 
 function checkAnswer() {
+
   var answer = parseInt(answerInput.value);
 
   if (answer === num1 + num2) {
